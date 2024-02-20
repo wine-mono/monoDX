@@ -130,19 +130,18 @@ namespace Microsoft.DirectX.DirectInput
 
 		public override bool Equals(object compare)
 		{
-			throw new NotImplementedException ();
+			var right = compare as Device;
+			if ((Object)right == null)
+				return false;
+
+			return _device == right._device;
 		}
 
 		public static bool operator ==(Device left, Device right)
 		{
-			if ((Object)left == null)
+			if ((Object)left == null || (Object)right == null)
 			{
-				if ((Object)right == null)
-					return true;
-			}
-			else if ((Object)right != null)
-			{
-				return true;
+				return ((Object)left == (Object)right);
 			}
 
 			return left._device == right._device;
