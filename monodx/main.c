@@ -740,6 +740,12 @@ HRESULT CDECL dinput_device_GetDeviceInfo(IDirectInputDevice8 *iface, DIDEVICEIN
 	return IDirectInputDevice8_GetDeviceInfo(iface, info);
 }
 
+HRESULT CDECL dinput_device_GetDeviceState(IDirectInputDevice8 *iface, DWORD cbData, void *lpvData)
+{
+	WINE_TRACE("iface %p cbData %i\n", iface, cbData);
+	return IDirectInputDevice8_GetDeviceState(iface, cbData, lpvData);
+}
+
 HRESULT CDECL dinput_device_Unacquire(IDirectInputDevice8 *iface)
 {
 	WINE_TRACE("iface %p\n", iface);

@@ -21,152 +21,201 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 using System;
+using System.Runtime.InteropServices;
 
 namespace Microsoft.DirectX.DirectInput
 {
+	[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)]
+	internal struct DIJOYSTATE2
+	{
+		public int lX;
+		public int lY;
+		public int lZ;
+		public int lRx;
+		public int lRy;
+		public int lRz;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst=2)]
+		public int[] rglSlider;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst=4)]
+		public int[] rgdwPOV;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst=128)]
+		public byte[] rgbButtons;
+		public int lVX;
+		public int lVY;
+		public int lVZ;
+		public int lVRx;
+		public int lVRy;
+		public int lVRz;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst=2)]
+		public int[] rglVSlider;
+		public int lAX;
+		public int lAY;
+		public int lAZ;
+		public int lARx;
+		public int lARy;
+		public int lARz;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst=2)]
+		public int[] rglASlider;
+		public int lFX;
+		public int lFY;
+		public int lFZ;
+		public int lFRx;
+		public int lFRy;
+		public int lFRz;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst=2)]
+		public int[] rglFSlider;
+	}
+
 	public struct JoystickState
 	{
+		private DIJOYSTATE2 _state;
+
+		internal JoystickState(DIJOYSTATE2 state)
+		{
+			_state = state;
+		}
+
 		public int FRz {
 			get {
-				throw new NotImplementedException ();
+				return _state.lFRz;
 			}
 		}
 
 		public int FRy {
 			get {
-				throw new NotImplementedException ();
+				return _state.lFRy;
 			}
 		}
 
 		public int FRx {
 			get {
-				throw new NotImplementedException ();
+				return _state.lFRx;
 			}
 		}
 
 		public int FZ {
 			get {
-				throw new NotImplementedException ();
+				return _state.lFZ;
 			}
 		}
 
 		public int FY {
 			get {
-				throw new NotImplementedException ();
+				return _state.lFY;
 			}
 		}
 
 		public int FX {
 			get {
-				throw new NotImplementedException ();
+				return _state.lFX;
 			}
 		}
 
 		public int ARz {
 			get {
-				throw new NotImplementedException ();
+				return _state.lARz;
 			}
 		}
 
 		public int ARy {
 			get {
-				throw new NotImplementedException ();
+				return _state.lARy;
 			}
 		}
 
 		public int ARx {
 			get {
-				throw new NotImplementedException ();
+				return _state.lARx;
 			}
 		}
 
 		public int AZ {
 			get {
-				throw new NotImplementedException ();
+				return _state.lAZ;
 			}
 		}
 
 		public int AY {
 			get {
-				throw new NotImplementedException ();
+				return _state.lAY;
 			}
 		}
 
 		public int AX {
 			get {
-				throw new NotImplementedException ();
+				return _state.lAX;
 			}
 		}
 
 		public int VRz {
 			get {
-				throw new NotImplementedException ();
+				return _state.lVRz;
 			}
 		}
 
 		public int VRy {
 			get {
-				throw new NotImplementedException ();
+				return _state.lVRy;
 			}
 		}
 
 		public int VRx {
 			get {
-				throw new NotImplementedException ();
+				return _state.lVRx;
 			}
 		}
 
 		public int VZ {
 			get {
-				throw new NotImplementedException ();
+				return _state.lVZ;
 			}
 		}
 
 		public int VY {
 			get {
-				throw new NotImplementedException ();
+				return _state.lVY;
 			}
 		}
 
 		public int VX {
 			get {
-				throw new NotImplementedException ();
+				return _state.lVX;
 			}
 		}
 
 		public int Rz {
 			get {
-				throw new NotImplementedException ();
+				return _state.lRz;
 			}
 		}
 
 		public int Ry {
 			get {
-				throw new NotImplementedException ();
+				return _state.lRy;
 			}
 		}
 
 		public int Rx {
 			get {
-				throw new NotImplementedException ();
+				return _state.lRx;
 			}
 		}
 
 		public int Z {
 			get {
-				throw new NotImplementedException ();
+				return _state.lZ;
 			}
 		}
 
 		public int Y {
 			get {
-				throw new NotImplementedException ();
+				return _state.lY;
 			}
 		}
 
 		public int X {
 			get {
-				throw new NotImplementedException ();
+				return _state.lX;
 			}
 		}
 
@@ -177,32 +226,32 @@ namespace Microsoft.DirectX.DirectInput
 
 		public int[] GetSlider ()
 		{
-			throw new NotImplementedException ();
+			return _state.rglSlider;
 		}
 
 		public int[] GetPointOfView ()
 		{
-			throw new NotImplementedException ();
+			return _state.rgdwPOV;
 		}
 
 		public byte[] GetButtons ()
 		{
-			throw new NotImplementedException ();
+			return _state.rgbButtons;
 		}
 
 		public int[] GetVSlider ()
 		{
-			throw new NotImplementedException ();
+			return _state.rglVSlider;
 		}
 
 		public int[] GetASlider ()
 		{
-			throw new NotImplementedException ();
+			return _state.rglASlider;
 		}
 
 		public int[] GetFSlider ()
 		{
-			throw new NotImplementedException ();
+			return _state.rglFSlider;
 		}
 	}
 }
