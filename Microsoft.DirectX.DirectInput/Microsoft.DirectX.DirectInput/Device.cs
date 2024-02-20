@@ -42,6 +42,9 @@ namespace Microsoft.DirectX.DirectInput
 		internal static extern int dinput_device_GetDeviceInfo(IntPtr device, out DIDEVICEINSTANCE info);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
+		internal static extern int dinput_device_GetDeviceState(IntPtr device, int buffer_size, [Out] byte[] state);
+
+		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
 		internal static extern int dinput_device_GetDeviceState(IntPtr device, int buffer_size, out DIJOYSTATE2 state);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
@@ -188,7 +191,9 @@ namespace Microsoft.DirectX.DirectInput
 		}
 		public KeyboardState GetCurrentKeyboardState()
 		{
-			throw new NotImplementedException ();
+			byte[] state = new byte[256];
+			Marshal.ThrowExceptionForHR(dinput_device_GetDeviceState(_device, 256, state));
+			return new KeyboardState(state);
 		}
 		public Key[] GetPressedKeys()
 		{

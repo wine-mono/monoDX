@@ -26,9 +26,16 @@ namespace Microsoft.DirectX.DirectInput
 {
 	public class KeyboardState
 	{
+		byte[] _state;
+
+		internal KeyboardState(byte[] state)
+		{
+			_state = state;
+		}
+
 		public bool this [Key index] {
 			get {
-				throw new NotImplementedException ();
+				return (_state[(int)index] & 0x80) == 0x80;
 			}
 		}
 
