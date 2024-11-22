@@ -90,12 +90,12 @@ namespace Microsoft.DirectX
 
 		public static Vector2 operator * (Vector2 left, float right)
 		{
-			throw new NotImplementedException ();
+			return Multiply (left, right);
 		}
 
 		public static Vector2 Multiply (Vector2 source, float s)
 		{
-			throw new NotImplementedException ();
+			return new Vector2 (source.X * s, source.Y * s);
 		}
 
 		public void Multiply (float s)
