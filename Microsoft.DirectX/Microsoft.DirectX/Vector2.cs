@@ -105,22 +105,22 @@ namespace Microsoft.DirectX
 
 		public float Length ()
 		{
-			throw new NotImplementedException ();
+			return (float) Math.Sqrt (LengthSq ());
 		}
 
 		public static float Length (Vector2 source)
 		{
-			throw new NotImplementedException ();
+			return source.Length ();
 		}
 
 		public float LengthSq ()
 		{
-			throw new NotImplementedException ();
+			return X*X + Y*Y;
 		}
 
 		public static float LengthSq (Vector2 source)
 		{
-			throw new NotImplementedException ();
+			return source.LengthSq ();
 		}
 
 		public static float Dot (Vector2 left, Vector2 right)
@@ -190,12 +190,16 @@ namespace Microsoft.DirectX
 
 		public void Normalize ()
 		{
-			throw new NotImplementedException ();
+			var length = Length ();
+			X = X / length;
+			Y = Y / length;
 		}
 
 		public static Vector2 Normalize (Vector2 source)
 		{
-			throw new NotImplementedException ();
+			var result = new Vector2 (source.X, source.Y);
+			result.Normalize ();
+			return result;
 		}
 
 		public static Vector2 Hermite (Vector2 position, Vector2 tangent, Vector2 position2, Vector2 tangent2, float weightingFactor)
