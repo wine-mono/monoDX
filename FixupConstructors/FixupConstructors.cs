@@ -120,6 +120,37 @@ class FixupConstructors
 		return changed;
 	}
 
+	static bool FixupConstMethods (ModuleDefinition module, TypeDefinition typedef)
+	{
+		bool changed = false;
+
+		foreach (MethodDefinition method in typedef.Methods)
+		{
+			if (!method.IsPublic)
+				continue;
+
+			CustomAttribute const_modifier_attr = null;
+
+			// return type
+			foreach (var ca in method.MethodReturnType.CustomAttributes)
+			{
+				if (ca.Constructor.DeclaringType.Name == "IsConstModifier")
+				{
+					const_modifier_attr = ca;
+				}
+			}
+
+			if (const_modifier_attr != null)
+			{
+				method.MethodReturnType.CustomAttributes.Remove(const_modifier_attr);
+				method.ReturnType = new OptionalModifierType(const_modifier_attr.Constructor.DeclaringType, method.ReturnType);
+				changed = true;
+			}
+		}
+
+		return changed;
+	}
+
 	static bool FixupModule (ModuleDefinition module)
 	{
 		bool changed = false;
@@ -130,6 +161,9 @@ class FixupConstructors
 				continue;
 
 			if (FixupTypeConstructor (module, typedef))
+				changed = true;
+
+			if (FixupConstMethods (module, typedef))
 				changed = true;
 
 			if (FixupConstFields (module, typedef))

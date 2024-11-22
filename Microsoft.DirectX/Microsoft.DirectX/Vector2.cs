@@ -31,6 +31,7 @@ namespace Microsoft.DirectX
 		public float Y;
 
 		public static Vector2 Empty {
+			[return: Microsoft.VisualC.IsConstModifier]
 			get {
 				return new Vector2 (0.0f, 0.0f);
 			}
