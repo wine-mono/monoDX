@@ -75,7 +75,7 @@ namespace Microsoft.DirectX
 
 		public static Vector2 operator + (Vector2 left, Vector2 right)
 		{
-			throw new NotImplementedException ();
+			return Add (left, right);
 		}
 
 		public static Vector2 operator - (Vector2 left, Vector2 right)
@@ -140,7 +140,7 @@ namespace Microsoft.DirectX
 
 		public static Vector2 Add (Vector2 left, Vector2 right)
 		{
-			throw new NotImplementedException ();
+			return new Vector2 (left.X + right.X, left.Y + right.Y);
 		}
 
 		public void Subtract (Vector2 source)
