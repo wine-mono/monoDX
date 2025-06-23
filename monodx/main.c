@@ -695,6 +695,44 @@ const DIDATAFORMAT c_dfDIJoystick2 = {
     (LPDIOBJECTDATAFORMAT)dfDIJoystick2
 };
 
+static const DIOBJECTDATAFORMAT dfDIMouse2[] = {
+  { &GUID_XAxis,  DIMOFS_X, DIDFT_ANYINSTANCE | DIDFT_AXIS, 0 },
+  { &GUID_YAxis,  DIMOFS_Y, DIDFT_ANYINSTANCE | DIDFT_AXIS, 0 },
+  { &GUID_ZAxis,  DIMOFS_Z, DIDFT_OPTIONAL | DIDFT_ANYINSTANCE | DIDFT_AXIS, 0 },
+  { &GUID_Button, DIMOFS_BUTTON0, DIDFT_ANYINSTANCE | DIDFT_BUTTON, 0 },
+  { &GUID_Button, DIMOFS_BUTTON1, DIDFT_ANYINSTANCE | DIDFT_BUTTON, 0 },
+  { &GUID_Button, DIMOFS_BUTTON2, DIDFT_OPTIONAL | DIDFT_ANYINSTANCE | DIDFT_BUTTON, 0 },
+  { &GUID_Button, DIMOFS_BUTTON3, DIDFT_OPTIONAL | DIDFT_ANYINSTANCE | DIDFT_BUTTON, 0 },
+  { &GUID_Button, DIMOFS_BUTTON4, DIDFT_OPTIONAL | DIDFT_ANYINSTANCE | DIDFT_BUTTON, 0 },
+  { &GUID_Button, DIMOFS_BUTTON5, DIDFT_OPTIONAL | DIDFT_ANYINSTANCE | DIDFT_BUTTON, 0 },
+  { &GUID_Button, DIMOFS_BUTTON6, DIDFT_OPTIONAL | DIDFT_ANYINSTANCE | DIDFT_BUTTON, 0 },
+  { &GUID_Button, DIMOFS_BUTTON7, DIDFT_OPTIONAL | DIDFT_ANYINSTANCE | DIDFT_BUTTON, 0 }
+};
+
+const DIDATAFORMAT c_dfDIMouse2 = {
+    sizeof(DIDATAFORMAT),
+    sizeof(DIOBJECTDATAFORMAT),
+    DIDF_RELAXIS,
+    sizeof(DIMOUSESTATE2),
+    sizeof(dfDIMouse2) / sizeof(dfDIMouse2[0]),
+    (LPDIOBJECTDATAFORMAT)dfDIMouse2
+};
+
+HRESULT CDECL dinput_device_SetDataFormatPredefined(IDirectInputDevice8 *iface, int df)
+{
+	switch (df)
+	{
+	case 0:
+		return IDirectInputDevice8_SetDataFormat(iface, &c_dfDIKeyboard);
+	case 1:
+		return IDirectInputDevice8_SetDataFormat(iface, &c_dfDIMouse2);
+	case 2:
+		return IDirectInputDevice8_SetDataFormat(iface, &c_dfDIJoystick2);
+	default:
+		return E_INVALIDARG;
+	}
+}
+
 HRESULT CDECL dinput_device_Acquire(IDirectInputDevice8 *iface)
 {
 	HRESULT hr;
@@ -719,6 +757,10 @@ HRESULT CDECL dinput_device_Acquire(IDirectInputDevice8 *iface)
 			case DI8DEVTYPE_GAMEPAD:
 			case DI8DEVTYPE_FLIGHT:
 				hr = IDirectInputDevice8_SetDataFormat(iface, &c_dfDIJoystick2);
+				break;
+			case DI8DEVTYPE_MOUSE:
+			case DI8DEVTYPE_SCREENPOINTER:
+				hr = IDirectInputDevice8_SetDataFormat(iface, &c_dfDIMouse2);
 				break;
 			default:
 				WINE_FIXME("unhandled device type %i\n", type);

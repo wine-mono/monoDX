@@ -48,6 +48,9 @@ namespace Microsoft.DirectX.DirectInput
 		internal static extern int dinput_device_GetDeviceState(IntPtr device, int buffer_size, out DIJOYSTATE2 state);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
+		internal static extern int dinput_device_SetDataFormatPredefined(IntPtr device, int df);
+
+		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
 		internal static extern int dinput_device_Unacquire(IntPtr device);
 
 		private void CheckDisposed()
@@ -205,7 +208,8 @@ namespace Microsoft.DirectX.DirectInput
 		}
 		public void SetDataFormat(DeviceDataFormat df)
 		{
-			throw new NotImplementedException ();
+			CheckDisposed();
+			Marshal.ThrowExceptionForHR(dinput_device_SetDataFormatPredefined(_device, (int)df));
 		}
 		public void SetDataFormat(DataFormat df)
 		{
