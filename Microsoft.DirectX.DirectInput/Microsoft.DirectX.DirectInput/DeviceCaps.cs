@@ -21,173 +21,187 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 using System;
+using System.Runtime.InteropServices;
 
 namespace Microsoft.DirectX.DirectInput
 {
+	[StructLayout(LayoutKind.Sequential)]
 	public struct DeviceCaps
 	{
+		int dwSize;
+		int dwFlags;
+		int dwDevType;
+		int dwAxes;
+		int dwButtons;
+		int dwPOVs;
+		int dwFFSamplePeriod;
+		int dwFFMinTimeResolution;
+		int dwFirmwareRevision;
+		int dwHardwareRevision;
+		int dwFFDriverVersion;
+
 		public bool Hidden {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x40000) != 0;
 			}
 		}
 
 		public bool Phantom {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x20000) != 0;
 			}
 		}
 
 		public unsafe bool Alias {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x10000) != 0;
 			}
 		}
 
 		public bool StartDelay {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x8000) != 0;
 			}
 		}
 
 		public bool DeadBand {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x4000) != 0;
 			}
 		}
 
 		public bool PosNegSaturation {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x2000) != 0;
 			}
 		}
 
 		public bool PosNegCoefficients {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x1000) != 0;
 			}
 		}
 
 		public bool Saturation {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x800) != 0;
 			}
 		}
 
 		public bool Fade {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x400) != 0;
 			}
 		}
 
 		public bool Attack {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x200) != 0;
 			}
 		}
 
 		public bool ForceFeedback {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x100) != 0;
 			}
 		}
 
 		public bool PolledDataFormat {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x8) != 0;
 			}
 		}
 
 		public bool Emulated {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x4) != 0;
 			}
 		}
 
 		public bool PolledDevice {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x2) != 0;
 			}
 		}
 
 		public bool Attatched {
 			
 			get {
-				throw new NotImplementedException ();
+				return (dwFlags & 0x1) != 0;
 			}
 		}
 
 		public int FFDriverVersion {
 			get {
-				throw new NotImplementedException ();
+				return dwFFDriverVersion;
 			}
 		}
 
 		public int HardwareRevision {
 			get {
-				throw new NotImplementedException ();
+				return dwHardwareRevision;
 			}
 		}
 
 		public int FirmwareRevision {
 			get {
-				throw new NotImplementedException ();
+				return dwFirmwareRevision;
 			}
 		}
 
 		public int FFMinTimeResolution {
 			get {
-				throw new NotImplementedException ();
+				return dwFFMinTimeResolution;
 			}
 		}
 
 		public int FFSamplePeriod {
 			get {
-				throw new NotImplementedException ();
+				return dwFFSamplePeriod;
 			}
 		}
 
 		public int NumberPointOfViews {
 			get {
-				throw new NotImplementedException ();
+				return dwPOVs;
 			}
 		}
 
 		public int NumberButtons {
 			get {
-				throw new NotImplementedException ();
+				return dwButtons;
 			}
 		}
 
 		public int NumberAxes {
 			get {
-				throw new NotImplementedException ();
+				return dwAxes;
 			}
 		}
 
 		public int DeviceSubType {
 			get {
-				throw new NotImplementedException ();
+				return (dwDevType >> 8) & 0xff;
 			}
 		}
 
 		public DeviceType DeviceType {
 			get {
-				throw new NotImplementedException ();
+				return (DeviceType)(dwDevType & 0xff);
 			}
 		}
 

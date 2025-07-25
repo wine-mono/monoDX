@@ -39,6 +39,9 @@ namespace Microsoft.DirectX.DirectInput
 		internal static extern int dinput_device_Acquire(IntPtr device);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
+		internal static extern int dinput_device_GetCapabilities(IntPtr device, out DeviceCaps caps);
+
+		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
 		internal static extern int dinput_device_GetDeviceInfo(IntPtr device, out DIDEVICEINSTANCE info);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
@@ -127,7 +130,9 @@ namespace Microsoft.DirectX.DirectInput
 		{
 			get
 			{
-				throw new NotImplementedException ();
+				CheckDisposed();
+				Marshal.ThrowExceptionForHR(dinput_device_GetCapabilities(_device, out DeviceCaps caps));
+				return caps;
 			}
 		}
 
