@@ -801,6 +801,12 @@ HRESULT CDECL dinput_device_Poll(IDirectInputDevice8 *iface)
 	return IDirectInputDevice8_Poll(iface);
 }
 
+HRESULT CDECL dinput_device_RunControlPanel(IDirectInputDevice8 *iface, HWND hwnd)
+{
+	WINE_TRACE("iface %p hwnd %p\n", iface, hwnd);
+	return IDirectInputDevice8_RunControlPanel(iface, hwnd, 0);
+}
+
 HRESULT CDECL dinput_device_SetCooperativeLevel(IDirectInputDevice8 *iface, HWND hwnd, DWORD flags)
 {
 	WINE_TRACE("iface %p hwnd %p flags %i\n", iface, hwnd, flags);

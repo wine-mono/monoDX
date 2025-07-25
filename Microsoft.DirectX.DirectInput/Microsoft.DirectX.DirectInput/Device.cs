@@ -54,6 +54,9 @@ namespace Microsoft.DirectX.DirectInput
 		internal static extern int dinput_device_Poll(IntPtr device);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
+		internal static extern int dinput_device_RunControlPanel(IntPtr device, IntPtr hwnd);
+
+		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
 		internal static extern int dinput_device_SetCooperativeLevel(IntPtr device, IntPtr hwnd, int flags);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
@@ -246,11 +249,16 @@ namespace Microsoft.DirectX.DirectInput
 		}
 		public void RunControlPanel()
 		{
-			throw new NotImplementedException ();
+			RunControlPanel(IntPtr.Zero);
 		}
 		public void RunControlPanel(Control owner)
 		{
-			throw new NotImplementedException ();
+			RunControlPanel(owner.Handle);
+		}
+		private void RunControlPanel(IntPtr hwnd)
+		{
+			CheckDisposed();
+			Marshal.ThrowExceptionForHR(dinput_device_RunControlPanel(_device, hwnd));
 		}
 
 		public EffectList GetEffects(string fileName, FileEffectsFlags flags)
