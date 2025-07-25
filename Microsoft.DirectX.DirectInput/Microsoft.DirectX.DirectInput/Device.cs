@@ -48,6 +48,9 @@ namespace Microsoft.DirectX.DirectInput
 		internal static extern int dinput_device_GetDeviceState(IntPtr device, int buffer_size, out DIJOYSTATE2 state);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
+		internal static extern int dinput_device_SetCooperativeLevel(IntPtr device, IntPtr hwnd, int flags);
+
+		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
 		internal static extern int dinput_device_SetDataFormatPredefined(IntPtr device, int df);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
@@ -222,11 +225,12 @@ namespace Microsoft.DirectX.DirectInput
 
 		public void SetCooperativeLevel(Control parent, CooperativeLevelFlags flags)
 		{
-			throw new NotImplementedException ();
+			SetCooperativeLevel(parent.Handle, flags);
 		}
 		public void SetCooperativeLevel(IntPtr hwnd, CooperativeLevelFlags flags)
 		{
-			throw new NotImplementedException ();
+			CheckDisposed();
+			Marshal.ThrowExceptionForHR(dinput_device_SetCooperativeLevel(_device, hwnd, (int)flags));
 		}
 		public DeviceObjectInstance GetObjectInformation(int obj, ParameterHow how)
 		{

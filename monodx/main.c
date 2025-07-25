@@ -788,6 +788,12 @@ HRESULT CDECL dinput_device_GetDeviceState(IDirectInputDevice8 *iface, DWORD cbD
 	return IDirectInputDevice8_GetDeviceState(iface, cbData, lpvData);
 }
 
+HRESULT CDECL dinput_device_SetCooperativeLevel(IDirectInputDevice8 *iface, HWND hwnd, DWORD flags)
+{
+	WINE_TRACE("iface %p hwnd %p flags %i\n", iface, hwnd, flags);
+	return IDirectInputDevice8_SetCooperativeLevel(iface, hwnd, flags);
+}
+
 HRESULT CDECL dinput_device_Unacquire(IDirectInputDevice8 *iface)
 {
 	WINE_TRACE("iface %p\n", iface);
