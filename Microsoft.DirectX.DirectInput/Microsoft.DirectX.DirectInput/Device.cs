@@ -51,6 +51,9 @@ namespace Microsoft.DirectX.DirectInput
 		internal static extern int dinput_device_GetDeviceState(IntPtr device, int buffer_size, out DIJOYSTATE2 state);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
+		internal static extern int dinput_device_Poll(IntPtr device);
+
+		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
 		internal static extern int dinput_device_SetCooperativeLevel(IntPtr device, IntPtr hwnd, int flags);
 
 		[DllImport("monodx.dll", CallingConvention=CallingConvention.Cdecl)]
@@ -272,7 +275,8 @@ namespace Microsoft.DirectX.DirectInput
 		}
 		public void Poll()
 		{
-			throw new NotImplementedException ();
+			CheckDisposed();
+			Marshal.ThrowExceptionForHR(dinput_device_Poll(_device));
 		}
 		public void WriteEffect(Stream stream, FileEffect[] fileEffect)
 		{
